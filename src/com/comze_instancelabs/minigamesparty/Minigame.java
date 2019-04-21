@@ -53,7 +53,7 @@ public class Minigame {
 	BukkitTask cooldown = null;
 	
 	public void startCooldown(){
-		//final BukkitTask id__ = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(m, new Runnable() {
+		final BukkitTask id__ = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(m, new Runnable() {
 
 		final BukkitTask id__ = Bukkit.getServer().getScheduler().runTaskTimer(m, new Runnable() {
 			public void run(){
@@ -112,7 +112,7 @@ public class Minigame {
 	}
 	
 	public void leave(final Player p){
-		/*for (PotionEffect effect : p.getActivePotionEffects()) {
+		for (PotionEffect effect : p.getActivePotionEffects()) {
 			if(p.hasPotionEffect(effect.getType())){
 				try {
 					p.removePotionEffect(effect.getType());
@@ -120,7 +120,7 @@ public class Minigame {
 					
 				}
 			}
-		}*/
+		}
 		if(p.hasPotionEffect(PotionEffectType.JUMP)){
 			p.removePotionEffect(PotionEffectType.JUMP);
 		}
