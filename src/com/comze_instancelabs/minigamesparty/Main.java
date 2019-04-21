@@ -204,7 +204,7 @@ public class Main extends JavaPlugin implements Listener {
 		getConfig().addDefault("config.item_reward_id", 264);
 		getConfig().addDefault("config.scoreboardoutgame", true);
 		getConfig().addDefault("config.announcements", true);
-		getConfig().addDefault("config.seconds_for_each_minigame", 60); // ô.ô
+		getConfig().addDefault("config.seconds_for_each_minigame", 60); // Ã´.Ã´
 		
 		getConfig().addDefault("strings.you_left", "You left the game.");
 		getConfig().addDefault("strings.next_round_30_seconds", "Next round in 30 seconds! You can leave with /mp leave.");
@@ -518,9 +518,9 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		}
 
-		/*if(players.size() < min_players){
+		if(players.size() < min_players){
 			stopFull();
-		}*/
+		}
 	}
 
 	@EventHandler 
@@ -1025,9 +1025,9 @@ public class Main extends JavaPlugin implements Listener {
 							hit.setTypeId(0);
 
 							player.playSound(player.getLocation(), Sound.CHICKEN_EGG_POP, 1F, 1F);
-							/*for (Player sp : players) {
+							for (Player sp : players) {
 	                            sp.getPlayer().playEffect(new Location(hit.getWorld(), hit.getLocation().getBlockX(), hit.getLocation().getBlockY() + 1.0D, hit.getLocation().getBlockZ()), Effect.MOBSPAWNER_FLAMES, 25);
-	                    	}*/
+	                    	}
 						}
 					} catch (Exception ex) { 
 						
@@ -1064,7 +1064,7 @@ public class Main extends JavaPlugin implements Listener {
 	
 	
 
-	/*public void nextMinigame(Player p){
+	public void nextMinigame(Player p){
 		// get current minigame and make winners
 		// get new minigame and tp all to the new one
 		p.setAllowFlight(false);
@@ -1079,14 +1079,14 @@ public class Main extends JavaPlugin implements Listener {
 			mg.lost.clear();
 		}
 		minigames.get(currentmg).join(p);
-	}*/
+	}
 
 	public void win(Player p){
 		if(p == null){
 			getLogger().severe("Could not resolve winner: " + Integer.toString(currentmg));
 			return;
 		}
-		//p.sendMessage(ChatColor.GOLD + "You won this round!");
+		p.sendMessage(ChatColor.GOLD + "You won this round!");
 		this.updatePlayerStats(p.getName(), "wins", getPlayerStats(p.getName(), "wins") + 1);
 		Random r = new Random();
 		int reward = r.nextInt((maxreward - minreward) + 1) + minreward;
@@ -1101,7 +1101,7 @@ public class Main extends JavaPlugin implements Listener {
 			getServer().broadcastMessage(ChatColor.GOLD	+ p.getName() + " won this round and earned " + ChatColor.BLUE + Integer.toString(reward) + ChatColor.GOLD + " Credits!");
 		}
 
-		p.sendMessage("§aYou earned " + Integer.toString(reward) + " Credits this round.");
+		p.sendMessage("Â§aYou earned " + Integer.toString(reward) + " Credits this round.");
 
 		msql.updateWinnerStats(p.getName(), reward);
 		
@@ -1119,7 +1119,7 @@ public class Main extends JavaPlugin implements Listener {
 			}else if(p.hasPermission("mp.triple_coins")){
 				reward_ = reward_ * 3;
 			}
-			p.sendMessage("§aYou earned " + Integer.toString(reward_) + " " + Material.getMaterial(item_id).name() + " this round. You'll get them at the end.");
+			p.sendMessage("Â§aYou earned " + Integer.toString(reward_) + " " + Material.getMaterial(item_id).name() + " this round. You'll get them at the end.");
 			if(rewardcount.containsKey(p.getName())){
 				reward_ += rewardcount.get(p.getName());
 			}
@@ -1176,7 +1176,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		// stop the whole party after some rounds
 		if(c_ > (minigames.size() - disabledMinigamesC) * seconds - 3){
-			//Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable(){
+			Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable(){
 			Bukkit.getScheduler().runTaskLater(this, new Runnable(){
 				public void run(){
 					startNew();
@@ -1242,7 +1242,7 @@ public class Main extends JavaPlugin implements Listener {
 			if(currentid != null){
 				currentid.cancel();
 			}
-			//currentid = nextMinigame();
+			currentid = nextMinigame();
 			nextMinigame();
 		}
 
@@ -1252,7 +1252,7 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	
-	//public BukkitTask nextMinigame(){
+	public BukkitTask nextMinigame(){
 	public void nextMinigame(){
 		
 		ingame_started = false;
@@ -1260,7 +1260,7 @@ public class Main extends JavaPlugin implements Listener {
 		
 		if(currentmg > -1){
 			cmg = minigames.get(currentmg);
-			//System.out.println(currentmg + " " + cmg.isEnabled());
+			System.out.println(currentmg + " " + cmg.isEnabled());
 		}
 		
 		// check disabled minigames at the end
@@ -1311,9 +1311,9 @@ public class Main extends JavaPlugin implements Listener {
 					for(Minigame mg : minigames){
 						mg.lost.clear();
 					}
-					//System.out.println(c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
-					//c_ += seconds;
-					//System.out.println("Turned to " + c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
+					System.out.println(c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
+					c_ += seconds;
+					System.out.println("Turned to " + c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
 					nextMinigame();
 					return;
 				}
@@ -1324,7 +1324,7 @@ public class Main extends JavaPlugin implements Listener {
 			mg.lost.clear();
 		}
 
-		//System.out.println(currentmg);
+		System.out.println(currentmg);
 		
 		if(currentmg > -1){
 			if(!minigames.get(currentmg).isEnabled()){
@@ -1332,9 +1332,9 @@ public class Main extends JavaPlugin implements Listener {
 				for(Minigame mg : minigames){
 					mg.lost.clear();
 				}
-				//System.out.println(c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
-				//c_ += seconds;
-				//System.out.println("Turned to " + c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
+				System.out.println(c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
+				c_ += seconds;
+				System.out.println("Turned to " + c_ + " " + (minigames.size() - disabledMinigamesCount) * seconds);
 				nextMinigame();
 				return;
 			}
@@ -1361,10 +1361,10 @@ public class Main extends JavaPlugin implements Listener {
 
 		
 		if(currentmg > -1 && currentmg < minigames.size()){
-			//return minigames.get(currentmg).start();
+			return minigames.get(currentmg).start();
 			minigames.get(currentmg).startCooldown();
 		}else{
-			//return null;
+			return null;
 		}
 	}
 	
@@ -1399,7 +1399,7 @@ public class Main extends JavaPlugin implements Listener {
 				}
 				
 				// start main timer
-				//t = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable(){
+				t = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(this, new Runnable(){
 				t = Bukkit.getServer().getScheduler().runTaskTimer(this, new Runnable(){
 					public void run(){
 						secondsTick(disabledMinigamesCount);
@@ -1518,7 +1518,7 @@ public class Main extends JavaPlugin implements Listener {
 
 		Scoreboard board = manager.getNewScoreboard();
 
-		Objective objective = board.registerNewObjective("test", "dummy");
+		Objective objective = board.registerNewObjective("minigamesparty", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
 		objective.setDisplayName(ChatColor.GOLD + "MinigamesParty!");
@@ -1549,7 +1549,7 @@ public class Main extends JavaPlugin implements Listener {
 		}
 	}
 
-	/*public void start(){
+	public void start(){
 		// if not running -> start
 		// else just join current game
 		//    if no current game, join into waiting lobby
@@ -1621,7 +1621,7 @@ public class Main extends JavaPlugin implements Listener {
 				running = true;
 			}
 		}
-	}*/
+	}
 
 	public void stop(BukkitTask id){
 		id.cancel();
@@ -1636,7 +1636,7 @@ public class Main extends JavaPlugin implements Listener {
 		for(String pl : players){
 			Player p = Bukkit.getPlayerExact(pl);
 			if(p.isOnline()){
-				/*for (PotionEffect effect : p.getActivePotionEffects()) {
+				for (PotionEffect effect : p.getActivePotionEffects()) {
 					if(p.hasPotionEffect(effect.getType())){
 						try {
 							p.removePotionEffect(effect.getType());
@@ -1644,7 +1644,7 @@ public class Main extends JavaPlugin implements Listener {
 							
 						}
 					}
-				}*/
+				}
 				if(p.hasPotionEffect(PotionEffectType.JUMP)){
 					p.removePotionEffect(PotionEffectType.JUMP);
 				}
@@ -1832,12 +1832,12 @@ public class Main extends JavaPlugin implements Listener {
 				}
 				
 			}
-			/*ColorMatch.reset(this.getComponentForMinigame("ColorMatch", "spawn"));
+			ColorMatch.reset(this.getComponentForMinigame("ColorMatch", "spawn"));
 			Spleef.reset(this.getComponentForMinigame("Spleef", "spawn"));
 			Location t = this.getComponentForMinigame("MineField", "spawn");
 			MineField.reset(new Location(t.getWorld(), t.getBlockX(), t.getBlockY(), t.getBlockZ() + 30));
 			DeadEnd.reset(this.getComponentForMinigame("DeadEnd", "spawn"));
-			DisIntegration.reset(this.getComponentForMinigame("DisIntegration", "spawn"));*/
+			DisIntegration.reset(this.getComponentForMinigame("DisIntegration", "spawn"));
 		}
 	}
 
@@ -1907,7 +1907,7 @@ public class Main extends JavaPlugin implements Listener {
 					// nothing
 				}else{
 					event.setCancelled(true);
-					event.getPlayer().sendMessage("§3You're in MinigamesParty. Please use §6/mp leave §3to leave the minigame.");
+					event.getPlayer().sendMessage("Â§3You're in MinigamesParty. Please use Â§6/mp leave Â§3to leave the minigame.");
 				}
 			}
 		}
@@ -2108,7 +2108,7 @@ public class Main extends JavaPlugin implements Listener {
 	// Nope nope nope nope sometimes simply crashes
 	// will look into that later
 	
-	/*@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerTeleport(PlayerTeleportEvent event) {
 		final Player player = event.getPlayer();
 		final int visibleDistance = getServer().getViewDistance() * 16;
@@ -2152,5 +2152,5 @@ public class Main extends JavaPlugin implements Listener {
 			}
 		}
 		return res;
-	}*/
+	}
 }
